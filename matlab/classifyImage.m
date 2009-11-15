@@ -23,10 +23,12 @@ per = bwdist(t3);
 t = imread('greenface.jpg');
 t2 = preprocessImage(t);
 t3 = t2(:,:,1);
+%t3 = edge(t3, 'canny');
 fac = bwdist(t3);
 
 i2 = preprocessImage(img);
 i3 = i2(:,:,i);
+%i3 = edge(i3, 'canny');
 D = bwdist(i3);
 
 sum(sum(abs(minus(D,tri))))

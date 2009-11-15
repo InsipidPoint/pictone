@@ -327,7 +327,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>0DF4AB2A10B047C500787BCD</string>
+										<string>0DF4AB3910B04C3000787BCD</string>
 										<key>history</key>
 										<array>
 											<string>0DF4AA8E10AF379B00787BCD</string>
@@ -533,12 +533,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>0DF4AB3A10B04C3000787BCD</string>
 		<string>0DF4AA8710AF36EC00787BCD</string>
 		<string>0DF4AA8810AF36EC00787BCD</string>
 		<string>0DF4AA7410AF362E00787BCD</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/shiweis/Documents/Stanford Grad/Aut 09/M256A/pictone/pictone/pictone.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>-2035 46 1210 1106 -2048 0 2048 1152 </string>

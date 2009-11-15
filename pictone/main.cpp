@@ -30,13 +30,15 @@ int main(int argc, char **argv) {
             CvSeq *contours = NULL;
             cvFindContours(gray, storage, &contours);
 //            cvZero( gray );
-            if( contours ) {
+            while( contours ) {
                 cout << "here\n";
                 cvDrawContours(gray, contours, cvScalarAll(255), cvScalarAll(255), 100);
-                cvBoundingRect(contours);
+                CvRect rect = cvBoundingRect(contours);
+                cvRectangle(small_img, cvPoint(rect.x,rect.y), cvPoint(rect.x+rect.width,rect.y+rect.height), CV_RGB(255,0,0), 2);
+                contours = contours->h_next;
             }
             
-            cvShowImage(WINDOW_NAME, gray);
+            cvShowImage(WINDOW_NAME, small_img);
             cvWaitKey(999999);
         } else if(key == 'q') {
             break;
