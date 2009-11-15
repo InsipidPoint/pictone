@@ -265,7 +265,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>08FB7794FE84155DC02AAC07</string>
-								<string>08FB7795FE84155DC02AAC07</string>
+								<string>0DF4AB4D10B064BE00787BCD</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
@@ -273,7 +273,6 @@
 							<array>
 								<array>
 									<integer>2</integer>
-									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -297,7 +296,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>-2035 46 1210 1106 -2048 0 2048 1152 </string>
+						<string>-1858 46 1210 1106 -2048 0 2048 1152 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -327,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>0DF4AB3910B04C3000787BCD</string>
+										<string>0DF4AC0710B086F300787BCD</string>
 										<key>history</key>
 										<array>
 											<string>0DF4AA8E10AF379B00787BCD</string>
@@ -335,7 +334,7 @@
 											<string>0DF4AA9F10AF37F600787BCD</string>
 											<string>0DF4AAA110AF37F600787BCD</string>
 											<string>0DF4AABA10B034B900787BCD</string>
-											<string>0DF4AABB10B034B900787BCD</string>
+											<string>0DF4AB6210B06B4300787BCD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -349,7 +348,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1002, 879}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-2035 46 1210 1106 -2048 0 2048 1152 </string>
+								<string>-1858 46 1210 1106 -2048 0 2048 1152 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -369,7 +368,7 @@
 								<key>Frame</key>
 								<string>{{0, 884}, {1002, 181}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-2035 46 1210 1106 -2048 0 2048 1152 </string>
+								<string>-1858 46 1210 1106 -2048 0 2048 1152 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -533,16 +532,16 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>0DF4AB3A10B04C3000787BCD</string>
+		<string>0DF4AC0810B086F300787BCD</string>
 		<string>0DF4AA8710AF36EC00787BCD</string>
 		<string>0DF4AA8810AF36EC00787BCD</string>
-		<string>0DF4AA7410AF362E00787BCD</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>0DF4AA7410AF362E00787BCD</string>
 		<string>/Users/shiweis/Documents/Stanford Grad/Aut 09/M256A/pictone/pictone/pictone.xcodeproj</string>
 		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
-	<string>-2035 46 1210 1106 -2048 0 2048 1152 </string>
+	<string>-1858 46 1210 1106 -2048 0 2048 1152 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -717,10 +716,10 @@
 									<key>Frame</key>
 									<string>{{607, 0}, {727, 215}}</string>
 									<key>RubberWindowFrame</key>
-									<string>-1991 646 1334 483 -2048 0 2048 1152 </string>
+									<string>-1890 643 1334 483 -2048 0 2048 1152 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>-1991 646 1334 483 -2048 0 2048 1152 </string>
+								<string>-1890 643 1334 483 -2048 0 2048 1152 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -754,11 +753,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>-1991 646 1334 483 -2048 0 2048 1152 </string>
+			<string>-1890 643 1334 483 -2048 0 2048 1152 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
@@ -888,18 +887,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {620, 222}}</string>
+								<string>{{0, 0}, {1080, 418}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-1991 866 620 263 -2048 0 2048 1152 </string>
+								<string>-1991 670 1080 459 -2048 0 2048 1152 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
 							<key>Proportion</key>
-							<string>222pt</string>
+							<string>418pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>222pt</string>
+					<string>418pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -919,7 +918,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>-1991 866 620 263 -2048 0 2048 1152 </string>
+			<string>-1991 670 1080 459 -2048 0 2048 1152 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
