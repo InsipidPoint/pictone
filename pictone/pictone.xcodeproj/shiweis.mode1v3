@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>0DF4AC0710B086F300787BCD</string>
+										<string>0DF4AC7110B0AC7F00787BCD</string>
 										<key>history</key>
 										<array>
 											<string>0DF4AA8E10AF379B00787BCD</string>
@@ -334,7 +334,7 @@
 											<string>0DF4AA9F10AF37F600787BCD</string>
 											<string>0DF4AAA110AF37F600787BCD</string>
 											<string>0DF4AABA10B034B900787BCD</string>
-											<string>0DF4AB6210B06B4300787BCD</string>
+											<string>0DF4AC2510B0909700787BCD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -532,13 +532,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>0DF4AC0810B086F300787BCD</string>
 		<string>0DF4AA8710AF36EC00787BCD</string>
 		<string>0DF4AA8810AF36EC00787BCD</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>0DF4AA7410AF362E00787BCD</string>
-		<string>/Users/shiweis/Documents/Stanford Grad/Aut 09/M256A/pictone/pictone/pictone.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/shiweis/Documents/Stanford Grad/Aut 09/M256A/pictone/pictone/pictone.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>-1858 46 1210 1106 -2048 0 2048 1152 </string>
@@ -562,7 +561,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>main.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -757,7 +756,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
