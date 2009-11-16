@@ -6,6 +6,7 @@
  *  Copyright 2009 Baren Studio. All rights reserved.
  *
  */
+#pragma once
 #include <OpenCV/cv.h>
 #include <OpenCV/highgui.h>
 
