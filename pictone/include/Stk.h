@@ -509,9 +509,7 @@ const unsigned int RT_BUFFER_SIZE = 512;
 // the various STK core classes (ex. Clarinet.cpp).  If you wish to
 // move the rawwaves directory to a different location in your file
 // system, you will need to set this path definition appropriately.
-#if !defined(RAWWAVE_PATH)
-  #define RAWWAVE_PATH "../../rawwaves/"
-#endif
+#define RAWWAVE_PATH "../rawwaves/"
 
 const StkFloat PI           = 3.14159265358979;
 const StkFloat TWO_PI       = 2 * PI;

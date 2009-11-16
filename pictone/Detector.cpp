@@ -60,7 +60,7 @@ Detector::Result MomentDetector::detect(IplImage *img) {
         double minS = 99999;
         int minT = -1;
         for (unsigned i = 0; i < templates.size(); i++) {
-            double score = cvMatchShapes(contours, templates.at(i), CV_CONTOURS_MATCH_I1);
+            double score = cvMatchShapes(contours, templates.at(i), CV_CONTOURS_MATCH_I3);
             if (score < minS) {
                 minS = score;
                 minT = i;
