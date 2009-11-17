@@ -99,6 +99,7 @@
 		0D0C04BB10B1849F003F8ED2 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04BA10B1849F003F8ED2 /* CoreAudio.framework */; };
 		0D0C04BF10B184AC003F8ED2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04BE10B184AC003F8ED2 /* CoreFoundation.framework */; };
 		0D0C04C310B184B3003F8ED2 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04C210B184B3003F8ED2 /* CoreMIDI.framework */; };
+		0D18504C10B21EEB007E600D /* Synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D18504B10B21EEB007E600D /* Synth.cpp */; };
 		0DF4AA7B10AF36D100787BCD /* OpenCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF4AA7A10AF36D100787BCD /* OpenCV.framework */; };
 		0DF4AA8D10AF375800787BCD /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DF4AA8C10AF375800787BCD /* Camera.cpp */; };
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
@@ -359,6 +360,8 @@
 		0D0C053610B18C4D003F8ED2 /* tomlowdr.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = tomlowdr.raw; sourceTree = "<group>"; };
 		0D0C053710B18C4D003F8ED2 /* tommiddr.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = tommiddr.raw; sourceTree = "<group>"; };
 		0D0C053810B18C4D003F8ED2 /* twopeaks.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = twopeaks.raw; sourceTree = "<group>"; };
+		0D18504A10B21EEB007E600D /* Synth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Synth.h; sourceTree = "<group>"; };
+		0D18504B10B21EEB007E600D /* Synth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Synth.cpp; sourceTree = "<group>"; };
 		0DF4AA7A10AF36D100787BCD /* OpenCV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCV.framework; path = Library/Frameworks/OpenCV.framework; sourceTree = SDKROOT; };
 		0DF4AA8B10AF375800787BCD /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		0DF4AA8C10AF375800787BCD /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				0DF4AA8C10AF375800787BCD /* Camera.cpp */,
 				0D0C029810B1660E003F8ED2 /* Detector.h */,
 				0D0C029910B1660E003F8ED2 /* Detector.cpp */,
+				0D18504A10B21EEB007E600D /* Synth.h */,
+				0D18504B10B21EEB007E600D /* Synth.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -857,6 +862,7 @@
 				0D0C043110B18143003F8ED2 /* VoicForm.cpp in Sources */,
 				0D0C043210B18143003F8ED2 /* Whistle.cpp in Sources */,
 				0D0C043310B18143003F8ED2 /* Wurley.cpp in Sources */,
+				0D18504C10B21EEB007E600D /* Synth.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
