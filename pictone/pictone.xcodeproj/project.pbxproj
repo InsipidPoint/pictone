@@ -100,6 +100,8 @@
 		0D0C04BF10B184AC003F8ED2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04BE10B184AC003F8ED2 /* CoreFoundation.framework */; };
 		0D0C04C310B184B3003F8ED2 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04C210B184B3003F8ED2 /* CoreMIDI.framework */; };
 		0D18504C10B21EEB007E600D /* Synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D18504B10B21EEB007E600D /* Synth.cpp */; };
+		0D75AD3A10BB15B1007AC893 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75AD3910BB15B1007AC893 /* GLUT.framework */; };
+		0D75AD3E10BB15BE007AC893 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75AD3D10BB15BE007AC893 /* OpenGL.framework */; };
 		0DF4AA7B10AF36D100787BCD /* OpenCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF4AA7A10AF36D100787BCD /* OpenCV.framework */; };
 		0DF4AA8D10AF375800787BCD /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DF4AA8C10AF375800787BCD /* Camera.cpp */; };
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
@@ -362,6 +364,8 @@
 		0D0C053810B18C4D003F8ED2 /* twopeaks.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = twopeaks.raw; sourceTree = "<group>"; };
 		0D18504A10B21EEB007E600D /* Synth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Synth.h; sourceTree = "<group>"; };
 		0D18504B10B21EEB007E600D /* Synth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Synth.cpp; sourceTree = "<group>"; };
+		0D75AD3910BB15B1007AC893 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		0D75AD3D10BB15BE007AC893 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0DF4AA7A10AF36D100787BCD /* OpenCV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCV.framework; path = Library/Frameworks/OpenCV.framework; sourceTree = SDKROOT; };
 		0DF4AA8B10AF375800787BCD /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		0DF4AA8C10AF375800787BCD /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -380,6 +384,8 @@
 				0D0C04BB10B1849F003F8ED2 /* CoreAudio.framework in Frameworks */,
 				0D0C04BF10B184AC003F8ED2 /* CoreFoundation.framework in Frameworks */,
 				0D0C04C310B184B3003F8ED2 /* CoreMIDI.framework in Frameworks */,
+				0D75AD3A10BB15B1007AC893 /* GLUT.framework in Frameworks */,
+				0D75AD3E10BB15BE007AC893 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +405,8 @@
 				0D0C04BA10B1849F003F8ED2 /* CoreAudio.framework */,
 				0D0C04BE10B184AC003F8ED2 /* CoreFoundation.framework */,
 				0D0C04C210B184B3003F8ED2 /* CoreMIDI.framework */,
+				0D75AD3910BB15B1007AC893 /* GLUT.framework */,
+				0D75AD3D10BB15BE007AC893 /* OpenGL.framework */,
 			);
 			name = pictone;
 			sourceTree = "<group>";
