@@ -879,7 +879,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"RAWWAVE_PATH=\\\"../rawwaves/\\\"",
+					"RAWWAVE_PATH=\\\"../../rawwaves/\\\"",
 					"__LITTLE_ENDIAN__=1",
 					"__MACOSX_CORE__=1",
 					"HAVE_GETTIMEOFDAY=1",
@@ -896,7 +896,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"RAWWAVE_PATH=\\\"../rawwaves/\\\"",
+					"RAWWAVE_PATH=\\\"../../rawwaves/\\\"",
 					"__LITTLE_ENDIAN__=1",
 					"__MACOSX_CORE__=1",
 					"HAVE_GETTIMEOFDAY=1",

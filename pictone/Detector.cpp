@@ -8,6 +8,7 @@
  */
 
 #include "Detector.h"
+#include <iostream>
 
 MomentDetector::MomentDetector() {
     CvMemStorage *storage = cvCreateMemStorage(0);
@@ -60,15 +61,48 @@ Detector::Result MomentDetector::detect(IplImage *img) {
         double minS = 99999;
         int minT = -1;
         for (unsigned i = 0; i < templates.size(); i++) {
-            double score = cvMatchShapes(contours, templates.at(i), CV_CONTOURS_MATCH_I3);
+            double score = cvMatchShapes(contours, templates.at(i), CV_CONTOURS_MATCH_I1);
             if (score < minS) {
                 minS = score;
                 minT = i;
             }
         }
         
-        pair<CvRect,Type> p = make_pair(cvBoundingRect(contours), Type(minT));
-        r.push_back(p);
+        std::cout << rect.x << " " << minS << endl;
+        Shape s;
+        if (minS > 1) {
+            minT = -1;
+//            CvMemStorage *tmp = cvCreateMemStorage(0);
+//            CvSeq *poly = cvApproxPoly(contours, sizeof(CvContour), tmp, CV_POLY_APPROX_DP, cvContourPerimeter(contours)*0.01);
+//            cvDrawContours(img, poly, CV_RGB(0,255,0), CV_RGB(0,255,0), 0);
+            std::cout << contours->total << " here\n";
+            CvPoint prev = cvPoint(999, 0);
+            bool search = true;
+            int j;
+            for (int i = 0; i < contours->total; i++) {
+                CvPoint *p = CV_GET_SEQ_ELEM(CvPoint, contours, i);
+                if (prev.x >= p->x && search) {
+                    prev = *p;
+                } else if (search) {
+                    search = false;
+                    j = i-1;
+                    s.pts.push_back(prev);
+                    s.pts.push_back(*p);
+                } else if (i-j+1 < contours->total/2) {
+                    s.pts.push_back(*p);
+                }
+
+                //std::cout << "(" << p->x << "," << p->y << ") ";
+            }
+            
+//            for (int i = 0; i < s.pts.size(); i++) {
+//                std::cout << "(" << s.pts.at(i).x << "," << s.pts.at(i).y << ") ";
+//            }
+        }
+
+        s.rect = cvBoundingRect(contours);
+        s.type = Type(minT);
+        r.push_back(s);
         
         char buf[50];
         sprintf(buf,"%d",minT);

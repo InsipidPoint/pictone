@@ -13,7 +13,7 @@ Camera::Camera(const char *filename) {
     if(filename)
         camera = cvCaptureFromAVI(filename);
     else
-        camera = cvCreateCameraCapture (CV_CAP_ANY);
+        camera = cvCreateCameraCapture(CV_CAP_ANY);
     
     if(!camera)
         abort();

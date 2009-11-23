@@ -2,18 +2,17 @@
 #include <vector>
 #include "Camera.h"
 #include "Detector.h"
+#include "Synth.h"
 
-#include "SineWave.h"
-#include "Plucked.h"
+#include "Clarinet.h"
 #include "RtAudio.h"
 
 using namespace std;
 using namespace stk;
 
-const char *WINDOW_NAME = "Pictone";
+MultiSynth synth;
 
-int g_notes[30];
-int g_t = 0;
+const char *WINDOW_NAME = "Pictone";
 
 // This tick() function handles sample computation only.  It will be
 // called automatically when the system needs a new buffer of audio
@@ -21,22 +20,11 @@ int g_t = 0;
 int tick( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
          double streamTime, RtAudioStreamStatus status, void *dataPointer )
 {
-    Plucked *sine = (Plucked *) dataPointer;
+//    Clarinet *sine = (Clarinet *) dataPointer;
     register StkFloat *samples = (StkFloat *) outputBuffer;
     
-    if (g_notes[g_t/90]>=0) {
-        if(g_t%90==0) {
-            sine->setFrequency(g_notes[g_t/90]);
-            sine->pluck(1);
-        }
-        g_t++;
-    } else {
-        g_t = 0;
-    }
-
-    
     for ( unsigned int i=0; i<nBufferFrames; i++ )
-        *samples++ = sine->tick();
+        *samples++ = synth.tick(); //sine->tick();
     
     return 0;
 }
@@ -50,7 +38,7 @@ int main(int argc, char **argv) {
     // Set the global sample rate before creating class instances.
     Stk::setSampleRate( 44100.0 );
     
-    Plucked plucked(200);
+    Clarinet plucked(200);
     RtAudio dac;
     
     // Figure out how many bytes in an StkFloat and setup the RtAudio stream.
@@ -67,8 +55,7 @@ int main(int argc, char **argv) {
         return 0;
     }
     
-    plucked.setFrequency(440.0);
-    plucked.pluck(1);
+//    plucked.noteOn(440, 1);
     
     try {
         dac.startStream();
@@ -77,8 +64,6 @@ int main(int argc, char **argv) {
         error.printMessage();
         return 0;
     }
-    
-    g_notes[0] = -1;
     ////////
     
     cvNamedWindow (WINDOW_NAME, CV_WINDOW_AUTOSIZE);
@@ -95,17 +80,10 @@ int main(int argc, char **argv) {
         char key = cvWaitKey(10);
         if (key == ' ') {   // capture
             Detector::Result r = detector.detect(small_img);
-            sort(r.begin(), r.end(), resultPredicate);
-            int i = 0;
-            for (i = 0; i < r.size(); i++) {
-                g_notes[i] = 200+100*r.at(i).second;
-            }
-            g_notes[i] = -1;
-            
+            synth.init(r);
             cvShowImage(WINDOW_NAME, small_img);
             cvWaitKey(999999);
-            g_notes[0] = -1;
-            g_t = 0;
+            synth.clear();
         } else if(key == 'q') {
             break;
         }

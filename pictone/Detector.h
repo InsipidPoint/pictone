@@ -24,7 +24,12 @@ public:
         PIN,    // 3
         STAR,    // 4
     };
-    typedef vector<pair<CvRect,Type> > Result;
+    struct Shape {
+        CvRect rect;
+        Type type;
+        vector<CvPoint> pts;
+    };
+    typedef vector<Shape> Result;
     
     virtual Result detect(IplImage *img) { Result r; return r; };
 };
