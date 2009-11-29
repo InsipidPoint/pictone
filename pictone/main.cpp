@@ -235,7 +235,7 @@ void displayFunc( )
 }
 
 int main(int argc, char **argv) {
-    
+        
     // initialize GLUT
     glutInit( &argc, argv );
     // double buffer, use rgb color, enable depth buffer
