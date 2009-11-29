@@ -43,20 +43,14 @@ public:
     StkFloat tick();
 private:
     enum mode {
+        freq = -2,
         silence = -1,
-        clarinet_noop = 0,
-        clarinet_freq,
-        clarinet_on,
+        clarinet_on = 0,
         clarinet_off,
-        saxofony_noop,
-        saxofony_freq,
         saxofony_on,
         saxofony_off,
-        plucked_noop,
-        plucked_freq,
         plucked_on,
         plucked_off,
-        shakers_noop,
         shakers_on,
         shakers_off
     };

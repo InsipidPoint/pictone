@@ -19,32 +19,29 @@ void MultiSynth::init(Detector::Result& result) {
     enabled = false;
 //    clarinet->noteOn(440, 1);
     sort(result.begin(), result.end(), resultPredicate);
-    mode prev = silence;
+    Cmd prev;
+    Cmd c, back;
     for (int i = 0; i < result.size(); i++) {
         CvRect rect = result.at(i).rect;
 //        float y = rect.y + rect.height/2.0;
-        Cmd c;
         switch (result.at(i).type) {
             case Detector::TRIANGLE_UP:
                 c.m = clarinet_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
                 cmds.push_back(c);
                 c.m = clarinet_off; c.delay = 0.4;
                 cmds.push_back(c);
-                prev = clarinet_freq;
                 break;
             case Detector::SQUARE:
                 c.m = saxofony_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
                 cmds.push_back(c);
                 c.m = saxofony_off; c.delay = 0.4;
                 cmds.push_back(c);
-                prev = saxofony_freq;
                 break;
             case Detector::PIN:
                 c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
                 cmds.push_back(c);
                 c.m = plucked_off; c.delay = 0.4;
                 cmds.push_back(c);
-                prev = plucked_freq;
                 break;
             case Detector::STAR:
                 c.m = shakers_on; c.freq = 440; c.delay = 0.6;
@@ -53,29 +50,19 @@ void MultiSynth::init(Detector::Result& result) {
                 cmds.push_back(c);
                 break;
             case Detector::UNKNOWN:
-                if (prev != silence) {
+                if (cmds.size() > 0) {
+                    prev = cmds.back();
                     cmds.pop_back();
-                    Cmd back = cmds.back();
+                    back = cmds.back();
                     back.delay = 0.1;
                     cmds.pop_back();
                     cmds.push_back(back);
-                    c.m = prev;
+                    c.m = freq;
                     for (int j = 0; j < result.at(i).pts.size(); j+=2) {
                         c.freq = calculateFrequency(result.at(i).pts.at(j)); c.delay = 0.05;
                         cmds.push_back(c);
                     }
-                    switch (prev) {
-                        case clarinet_freq:
-                            c.m = clarinet_off; c.delay = 0.4;
-                            cmds.push_back(c);
-                            break;
-                        case saxofony_freq:
-                            c.m = saxofony_off; c.delay = 0.4;
-                            cmds.push_back(c);
-                            break;
-                        default:
-                            break;
-                    }
+                    cmds.push_back(prev);
                 }
                 break;
             default:
@@ -112,18 +99,12 @@ StkFloat MultiSynth::tick() {
                 case clarinet_off:
                     clarinet->noteOff(1);
                     break;
-                case clarinet_freq:
-                    clarinet->setFrequency(cmds.at(cmdIdx).freq);
-                    break;
                 case saxofony_on:
                     saxofony->noteOn(cmds.at(cmdIdx).freq, 1);
                     current = saxofony;
                     break;
                 case saxofony_off:
                     saxofony->noteOff(1);
-                    break;
-                case saxofony_freq:
-                    saxofony->setFrequency(cmds.at(cmdIdx).freq);
                     break;
                 case plucked_on:
                     plucked->noteOn(cmds.at(cmdIdx).freq, 1);
@@ -139,6 +120,9 @@ StkFloat MultiSynth::tick() {
                     break;
                 case shakers_off:
                     shakers->noteOff(1);
+                    break;
+                case freq:
+                    current->setFrequency(cmds.at(cmdIdx).freq);
                     break;
                 default:
                     break;
