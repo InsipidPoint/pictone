@@ -52,7 +52,7 @@ Detector::Result MomentDetector::detect(IplImage *img) {
     cvFindContours(gray, storage, &contours, sizeof(CvContour), CV_RETR_TREE);
     
     while(contours) {
-        cvDrawContours(img, contours, cvScalarAll(255), cvScalarAll(128), 0);
+//        cvDrawContours(img, contours, cvScalarAll(255), cvScalarAll(128), 0);
         CvRect rect = cvBoundingRect(contours);
         rect.x += 82;
         rect.y += 82;

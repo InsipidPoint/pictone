@@ -30,7 +30,7 @@ public:
 
 class MultiSynth : public Synth {
 public:
-    MultiSynth() : enabled(false), ticks(0), progress(0), cmdIdx(0) {
+    MultiSynth() : enabled(false), ticks(0), progress(0), cmdIdx(0), playIdx(-1) {
         clarinet = new Clarinet(200);
         saxofony = new Saxofony(200);
         plucked = new Plucked(200);
@@ -41,6 +41,7 @@ public:
     void init(Detector::Result&);
     void clear();
     StkFloat tick();
+    int playIdx;
 private:
     enum mode {
         freq = -2,
@@ -58,6 +59,7 @@ private:
         mode m;
         float freq;
         float delay;
+        int idx;
     };
     vector<Cmd> cmds;
     

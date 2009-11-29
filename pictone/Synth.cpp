@@ -26,38 +26,38 @@ void MultiSynth::init(Detector::Result& result) {
 //        float y = rect.y + rect.height/2.0;
         switch (result.at(i).type) {
             case Detector::TRIANGLE_UP:
-                c.m = clarinet_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
+                c.m = clarinet_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
                 c.m = clarinet_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
             case Detector::SQUARE:
-                c.m = saxofony_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
+                c.m = saxofony_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
                 c.m = saxofony_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
             case Detector::PIN:
-                c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = 0.6;
+                c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
                 c.m = plucked_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
             case Detector::STAR:
-                c.m = shakers_on; c.freq = 440; c.delay = 0.6;
+                c.m = shakers_on; c.freq = 440; c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
                 c.m = shakers_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
             case Detector::UNKNOWN:
                 if (cmds.size() > 0) {
-                    prev = cmds.back();
+                    prev = cmds.back(); prev.idx = i;
                     cmds.pop_back();
                     back = cmds.back();
                     back.delay = 0.1;
                     cmds.pop_back();
                     cmds.push_back(back);
-                    c.m = freq;
+                    c.m = freq; c.idx = i;
                     for (int j = 0; j < result.at(i).pts.size(); j+=2) {
                         c.freq = calculateFrequency(result.at(i).pts.at(j)); c.delay = 0.05;
                         cmds.push_back(c);
@@ -91,6 +91,7 @@ StkFloat MultiSynth::tick() {
     if (enabled) {
 //        return clarinet->tick();
         if (progress == 0) {
+            playIdx = cmds.at(cmdIdx).idx;
             switch (cmds.at(cmdIdx).m) {
                 case clarinet_on:
                     clarinet->noteOn(cmds.at(cmdIdx).freq, 1);

@@ -20,6 +20,9 @@ Camera cam;
 MomentDetector detector;
 MultiSynth synth;
 bool g_detect = false;
+Detector::Result res;
+
+GLuint texture;
 
 //-----------------------------------------------------------------------------
 // function prototypes
@@ -68,11 +71,14 @@ void initialize()
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     
     // enable lighting for front
-    glLightModeli( GL_FRONT_AND_BACK, GL_TRUE );
+ //   glLightModeli( GL_FRONT_AND_BACK, GL_TRUE );
     // material have diffuse and ambient lighting 
     glColorMaterial( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE );
     // enable color
     glEnable( GL_COLOR_MATERIAL );
+    
+    glEnable(GL_TEXTURE_2D);
+    glGenTextures(1, &texture);
 }
 
 //-----------------------------------------------------------------------------
@@ -90,13 +96,14 @@ void reshapeFunc( GLsizei w, GLsizei h )
     // load the identity matrix
     glLoadIdentity( );
     // create the viewing frustum
-    gluPerspective( 90.0, (GLfloat) w / (GLfloat) h, .1, 50.0 );
+//    gluPerspective( 90.0, (GLfloat) w / (GLfloat) h, .1, 50.0 );
+    glOrtho(0, g_width, g_height, 0, 0, 100);
     // set the matrix mode to modelview
     glMatrixMode( GL_MODELVIEW );
     // load the identity matrix
     glLoadIdentity( );
     // position the view point
-    gluLookAt( 0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f );
+    gluLookAt( 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f );
 }
 
 //-----------------------------------------------------------------------------
@@ -105,15 +112,15 @@ void reshapeFunc( GLsizei w, GLsizei h )
 //-----------------------------------------------------------------------------
 void keyboardFunc( unsigned char key, int x, int y )
 {
-    Detector::Result r;
     switch( key ) {
         case ' ':
             if (g_detect) {
                 synth.clear();
+                res.clear();
                 g_detect = false;
             } else {
-                r = detector.detect(small_img);
-                synth.init(r);
+                res = detector.detect(small_img);
+                synth.init(res);
                 g_detect = true;
             }   
             break;
@@ -186,48 +193,69 @@ void displayFunc( )
         cvRectangle(small_img, cvPoint(80,80), cvPoint(560,400), CV_RGB(0,255,0), 1);
     }
     
-//    glEnable(GL_TEXTURE_2D);
-//    glBindTexture (GL_TEXTURE_2D, 13);
-//    glTexImage2D(GL_TEXTURE_2D,        //target
-//                 0,                    //level
-//                 GL_RGB,               //internalFormat
-//                 small_img->width,         //width
-//                 small_img->height,        //height
-//                 0,                    //border
-//                 GL_BGR,               //format
-//                 GL_UNSIGNED_BYTE,     //type
-//                 small_img->imageData);    //pointer to image data
-//    glBegin (GL_QUADS);
-//    glTexCoord2f (0.0, 0.0);
-//    glVertex3f (0.0, 0.0, 0.0);
-//    glTexCoord2f (1.0, 0.0);
-//    glVertex3f (10.0, 0.0, 0.0);
-//    glTexCoord2f (1.0, 1.0);
-//    glVertex3f (10.0, 10.0, 0.0);
-//    glTexCoord2f (0.0, 1.0);
-//    glVertex3f (0.0, 10.0, 0.0);
-//    glEnd ();
+    cvCopyMakeBorder(small_img, tex_img, cvPoint(0,0), IPL_BORDER_CONSTANT);
+    
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D,        //target
+                 0,                    //level
+                 GL_RGB,               //internalFormat
+                 tex_img->width,         //width
+                 tex_img->height,        //height
+                 0,                    //border
+                 GL_BGR,               //format
+                 GL_UNSIGNED_BYTE,     //type
+                 tex_img->imageData);    //pointer to image data
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
 
-//    glMatrixMode(GL_PROJECTION);
-//    glPushMatrix();
-//    glLoadIdentity();
-//    gluOrtho2D(0.0,g_width,0.0,g_height);
-//    glMatrixMode(GL_MODELVIEW);
-//    glPushMatrix();
-//    glLoadIdentity();
+    glColor3f(1, 1, 1);
+    glBegin (GL_QUADS);
+    glTexCoord2f (0.0, 0.0); glVertex3f (0.0, 0.0, 10.0);
+    glTexCoord2f (0.625, 0.0); glVertex3f (g_width, 0.0, 10.0);
+    glTexCoord2f (0.625, 0.9375); glVertex3f (g_width, g_height, 10.0);
+    glTexCoord2f (0.0, 0.9375); glVertex3f (0.0, g_height, 10.0);
+    glEnd ();
     
-    cvConvertImage(small_img, tex_img, CV_CVTIMG_FLIP);
-    glDrawPixels(tex_img->width,tex_img->height,GL_BGR,GL_UNSIGNED_BYTE,tex_img->imageData);
-    
-//    glMatrixMode(GL_PROJECTION);
-//    glPopMatrix();
-//    glMatrixMode(GL_MODELVIEW);
-//    glPopMatrix();
-    
-//    glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_LEQUAL);
+//    cvConvertImage(small_img, tex_img, CV_CVTIMG_FLIP);
+// glDrawPixels(tex_img->width,tex_img->height,GL_BGR,GL_UNSIGNED_BYTE,tex_img->imageData);
     
     glPopMatrix();
+    
+    glPushMatrix();
+    if (res.size() > 0) {
+        CvRect rect = res.at(synth.playIdx).rect;
+        glColor4f(0, 0, 1, 0.25);
+        glBegin (GL_QUADS);
+        glVertex3f (rect.x+82, rect.y+82, 20.0);
+        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
+        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
+        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
+        glEnd ();
+    }
+    glPopMatrix();
+    
+//    for(int i = 0; i < res.size(); i++) {
+//        CvRect rect = res.at(i).rect;
+//        switch (res.at(i).type) {
+//            case Detector::TRIANGLE_UP:
+//                glPushMatrix();
+//                
+//                glTranslatef(rect.x, rect.y, 20);
+//                
+//                glBegin(GL_TRIANGLES);                          // Drawing Using Triangles
+//                glColor4f(1, 0, 0, 0.5); glVertex3f(10.0f, 0.0f, 10.0f);				// Top
+//                glColor4f(1, 0, 0, 0.5); glVertex3f(0.0f,20.0f, 10.0f);				// Bottom Left
+//                glColor4f(1, 0, 0, 0.5); glVertex3f(20.0f,20.0f, 10.0f);				// Bottom Right
+//                glEnd();
+//                
+//                glPopMatrix();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+    
+   // glColor3f( 1, 1, 1 );
     
     // flush and swap
     glFlush( );
@@ -293,7 +321,7 @@ int main(int argc, char **argv) {
     ////////
     
     small_img = cvCreateImage(cvSize(640,480), 8, 3);
-    tex_img = cvCreateImage(cvSize(640,480), 8, 3);
+    tex_img = cvCreateImage(cvSize(1024,512), 8, 3);
     
     glutMainLoop();
     
