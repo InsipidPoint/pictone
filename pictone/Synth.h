@@ -14,6 +14,7 @@
 #include "Clarinet.h"
 #include "Saxofony.h"
 #include "Bowed.h"
+#include "BlowBotl.h"
 
 using namespace stk;
 using namespace std;
@@ -35,6 +36,7 @@ public:
         saxofony = new Saxofony(200);
         plucked = new Plucked(200);
         bowed = new Bowed(200);
+        bottle = new BlowBotl();
         current = clarinet;
     };
     ~MultiSynth() { delete clarinet; };
@@ -53,7 +55,9 @@ private:
         plucked_on,
         plucked_off,
         bowed_on,
-        bowed_off
+        bowed_off,
+        bottle_on,
+        bottle_off
     };
     struct Cmd {
         mode m;
@@ -73,6 +77,7 @@ private:
     Saxofony *saxofony;
     Plucked *plucked;
     Bowed *bowed;
+    BlowBotl *bottle;
     
     float calculateFrequency(CvRect);
     float calculateFrequency(CvPoint);

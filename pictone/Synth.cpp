@@ -44,9 +44,9 @@ void MultiSynth::init(Detector::Result& result) {
                 cmds.push_back(c);
                 break;
             case Detector::PIN:
-                c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+                c.m = bottle_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
-                c.m = plucked_off; c.delay = 0.4;
+                c.m = bottle_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
             case Detector::STAR:
@@ -124,6 +124,13 @@ StkFloat MultiSynth::tick() {
                     break;
                 case bowed_off:
                     bowed->noteOff(1);
+                    break;
+                case bottle_on:
+                    bottle->noteOn(cmds.at(cmdIdx).freq, 1);
+                    current = bottle;
+                    break;
+                case bottle_off:
+                    bottle->noteOff(1);
                     break;
                 case silence:
                     current->noteOff(1);
