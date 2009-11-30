@@ -224,11 +224,14 @@ void displayFunc( )
     glPushMatrix();
     if (res.size() > 0) {
         CvRect rect = res.at(synth.playIdx).rect;
-        glColor4f(0, 0, 1, 0.25);
         glBegin (GL_QUADS);
+        glColor4f(0, 0, 1, 0.25);
         glVertex3f (rect.x+82, rect.y+82, 20.0);
+        glColor4f(0, 0, 1, 0.25);
         glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
+        glColor4f(0, 0, 1, 0.25);
         glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
+        glColor4f(0, 0, 1, 0.25);
         glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
         glEnd ();
     }

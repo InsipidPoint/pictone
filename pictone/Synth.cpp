@@ -37,6 +37,12 @@ void MultiSynth::init(Detector::Result& result) {
                 c.m = saxofony_off; c.delay = 0.4;
                 cmds.push_back(c);
                 break;
+            case Detector::SLANT:
+                c.m = bowed_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+                cmds.push_back(c);
+                c.m = bowed_off; c.delay = 0.4;
+                cmds.push_back(c);
+                break;
             case Detector::PIN:
                 c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
                 cmds.push_back(c);
@@ -44,9 +50,7 @@ void MultiSynth::init(Detector::Result& result) {
                 cmds.push_back(c);
                 break;
             case Detector::STAR:
-                c.m = shakers_on; c.freq = 440; c.delay = 0.6; c.idx = i;
-                cmds.push_back(c);
-                c.m = shakers_off; c.delay = 0.4;
+                c.m = silence; c.delay = 1; c.idx = i;
                 cmds.push_back(c);
                 break;
             case Detector::UNKNOWN:
@@ -59,7 +63,7 @@ void MultiSynth::init(Detector::Result& result) {
                     cmds.push_back(back);
                     c.m = freq; c.idx = i;
                     for (int j = 0; j < result.at(i).pts.size(); j+=2) {
-                        c.freq = calculateFrequency(result.at(i).pts.at(j)); c.delay = 0.05;
+                        c.freq = calculateFrequency(result.at(i).pts.at(j)); c.delay = 0.03;
                         cmds.push_back(c);
                     }
                     cmds.push_back(prev);
@@ -94,14 +98,14 @@ StkFloat MultiSynth::tick() {
             playIdx = cmds.at(cmdIdx).idx;
             switch (cmds.at(cmdIdx).m) {
                 case clarinet_on:
-                    clarinet->noteOn(cmds.at(cmdIdx).freq, 1);
+                    clarinet->noteOn(cmds.at(cmdIdx).freq, 0.3);
                     current = clarinet;
                     break;
                 case clarinet_off:
                     clarinet->noteOff(1);
                     break;
                 case saxofony_on:
-                    saxofony->noteOn(cmds.at(cmdIdx).freq, 1);
+                    saxofony->noteOn(cmds.at(cmdIdx).freq, 0.3);
                     current = saxofony;
                     break;
                 case saxofony_off:
@@ -114,13 +118,15 @@ StkFloat MultiSynth::tick() {
                 case plucked_off:
                     plucked->noteOff(1);
                     break;
-                case shakers_on:
-                    shakers->noteOn(5, 1);
-                    shakers->controlChange(1, cmds.at(cmdIdx).freq);
-                    current = shakers;
+                case bowed_on:
+                    bowed->noteOn(cmds.at(cmdIdx).freq, 1);
+                    current = bowed;
                     break;
-                case shakers_off:
-                    shakers->noteOff(1);
+                case bowed_off:
+                    bowed->noteOff(1);
+                    break;
+                case silence:
+                    current->noteOff(1);
                     break;
                 case freq:
                     current->setFrequency(cmds.at(cmdIdx).freq);

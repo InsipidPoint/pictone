@@ -13,7 +13,7 @@
 #include "Plucked.h"
 #include "Clarinet.h"
 #include "Saxofony.h"
-#include "Shakers.h"
+#include "Bowed.h"
 
 using namespace stk;
 using namespace std;
@@ -34,7 +34,7 @@ public:
         clarinet = new Clarinet(200);
         saxofony = new Saxofony(200);
         plucked = new Plucked(200);
-        shakers = new Shakers();
+        bowed = new Bowed(200);
         current = clarinet;
     };
     ~MultiSynth() { delete clarinet; };
@@ -52,8 +52,8 @@ private:
         saxofony_off,
         plucked_on,
         plucked_off,
-        shakers_on,
-        shakers_off
+        bowed_on,
+        bowed_off
     };
     struct Cmd {
         mode m;
@@ -72,7 +72,7 @@ private:
     Clarinet *clarinet;
     Saxofony *saxofony;
     Plucked *plucked;
-    Shakers *shakers;
+    Bowed *bowed;
     
     float calculateFrequency(CvRect);
     float calculateFrequency(CvPoint);
