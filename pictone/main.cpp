@@ -22,6 +22,9 @@ MomentDetector detector;
 MultiSynth synth;
 bool g_detect = false;
 Detector::Result res;
+vector<pair<CvPoint,double> > note_flow;
+int note_flow_idx = 0;
+int gap = 5;
 
 GLuint texture, note_tex;
 
@@ -81,14 +84,6 @@ void initialize()
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    //
-//    float fAmbient[] = {0.2f, 0.2f, 0.2f, 1.0f};
-//    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
-//    
-//    float fDiffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
-//    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
-    //
-    
     glEnable(GL_TEXTURE_2D);
     glGenTextures(1, &texture);
     
@@ -97,7 +92,6 @@ void initialize()
      "note.png",
      SOIL_LOAD_AUTO,
      SOIL_CREATE_NEW_ID,SOIL_FLAG_MULTIPLY_ALPHA
-   //  SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
      );
 	
     /* check for an error during the load process */
@@ -105,22 +99,6 @@ void initialize()
     {
         printf( "SOIL loading error: '%s'\n", SOIL_last_result() );
     }
-    
-    cout << note_tex << endl;
-    
-//    glGenTextures(2, &note_tex);
-//    glBindTexture(GL_TEXTURE_2D, note_tex);
-//    glTexImage2D(GL_TEXTURE_2D,        //target
-//                 0,                    //level
-//                 GL_RGB,               //internalFormat
-//                 tex_img->width,         //width
-//                 tex_img->height,        //height
-//                 0,                    //border
-//                 GL_BGR,               //format
-//                 GL_UNSIGNED_BYTE,     //type
-//                 tex_img->imageData);    //pointer to image data
-//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
-//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
 }
 
 //-----------------------------------------------------------------------------
@@ -278,18 +256,36 @@ void displayFunc( )
         angle += 2;
         y_diff += 1;
         
-        glColor4f(0.5, 0.5, 1, 0.75);
-        glBindTexture(GL_TEXTURE_2D, note_tex);
-        glBegin (GL_QUADS);
-        glTexCoord2f (0.0, 0.0);
-        glVertex3f (rect.x+82, rect.y+82, 20.0);
-        glTexCoord2f (1.0, 0.0);
-        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
-        glTexCoord2f (1.0, 1.0);
-        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
-        glTexCoord2f (0.0, 1.0);
-        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
-        glEnd ();
+        if (gap == 0) {
+            note_flow[note_flow_idx].first.x = rect.x+82;
+            note_flow[note_flow_idx].first.y = rect.y+83;
+            note_flow[note_flow_idx].second = 0.8;
+            
+            gap = 5;
+            note_flow_idx = (note_flow_idx+1) % note_flow.size();
+        } else {
+            gap--;
+        }
+        
+        for (int i = 0; i < 100; i++) {
+            if (note_flow[i].second > 0) {
+                note_flow[i].second -= 0.05;
+                note_flow[i].first.y -= 3;
+                
+                glColor4f(0.5, 0.5, 1, note_flow[i].second);
+                glBindTexture(GL_TEXTURE_2D, note_tex);
+                glBegin (GL_QUADS);
+                glTexCoord2f (0.0, 0.0);
+                glVertex3f (note_flow[i].first.x, note_flow[i].first.y-rect.height, 20.0 + i/50.0);
+                glTexCoord2f (1.0, 0.0);
+                glVertex3f (note_flow[i].first.x+rect.width, note_flow[i].first.y-rect.height, 20.0 + i/50.0);
+                glTexCoord2f (1.0, 1.0);
+                glVertex3f (note_flow[i].first.x+rect.width, note_flow[i].first.y, 20.0 + i/50.0);
+                glTexCoord2f (0.0, 1.0);
+                glVertex3f (note_flow[i].first.x, note_flow[i].first.y, 20.0 + i/50.0);
+                glEnd ();
+            }
+        }
     }
     glPopMatrix();
     
@@ -325,7 +321,9 @@ int main(int argc, char **argv) {
     // do our own initialization
     initialize();
     
-    //
+    for (int i = 0; i < 100; i++) {
+        note_flow.push_back(make_pair(cvPoint(0,0), 0));
+    }
     
     // Set the global sample rate before creating class instances.
     Stk::setSampleRate( 44100.0 );
