@@ -71,11 +71,19 @@ void initialize()
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     
     // enable lighting for front
- //   glLightModeli( GL_FRONT_AND_BACK, GL_TRUE );
+    glLightModeli( GL_FRONT_AND_BACK, GL_TRUE );
     // material have diffuse and ambient lighting 
     glColorMaterial( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE );
     // enable color
     glEnable( GL_COLOR_MATERIAL );
+    
+    //
+//    float fAmbient[] = {0.2f, 0.2f, 0.2f, 1.0f};
+//    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
+//    
+//    float fDiffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+//    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
+    //
     
     glEnable(GL_TEXTURE_2D);
     glGenTextures(1, &texture);
@@ -195,6 +203,9 @@ void displayFunc( )
     
     cvCopyMakeBorder(small_img, tex_img, cvPoint(0,0), IPL_BORDER_CONSTANT);
     
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_COLOR_MATERIAL);
+    
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D,        //target
                  0,                    //level
@@ -216,24 +227,33 @@ void displayFunc( )
     glTexCoord2f (0.0, 0.9375); glVertex3f (0.0, g_height, 10.0);
     glEnd ();
     
-//    cvConvertImage(small_img, tex_img, CV_CVTIMG_FLIP);
-// glDrawPixels(tex_img->width,tex_img->height,GL_BGR,GL_UNSIGNED_BYTE,tex_img->imageData);
-    
     glPopMatrix();
     
+    
+    glEnable(GL_COLOR_MATERIAL);
+    glDisable(GL_TEXTURE_2D);
+    static GLfloat angle = 0;
+    static double y_diff = 0;
     glPushMatrix();
     if (res.size() > 0) {
         CvRect rect = res.at(synth.playIdx).rect;
-        glBegin (GL_QUADS);
-        glColor4f(0, 0, 1, 0.25);
-        glVertex3f (rect.x+82, rect.y+82, 20.0);
-        glColor4f(0, 0, 1, 0.25);
-        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
-        glColor4f(0, 0, 1, 0.25);
-        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
-        glColor4f(0, 0, 1, 0.25);
-        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
-        glEnd ();
+        glColor3f(0, 0, 1);
+        glTranslatef(rect.x+rect.width/2+82, rect.y+rect.height/2+82+sin(y_diff)*10, 20);
+        glRotatef(angle, 0, 1, 0);
+        glutSolidSphere(20, 8, 8);
+        angle += 2;
+        y_diff += 1;
+        
+        //glBegin (GL_QUADS);
+//        glColor4f(0, 0, 1, 0.25);
+//        glVertex3f (rect.x+82, rect.y+82, 20.0);
+//        glColor4f(0, 0, 1, 0.25);
+//        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
+//        glColor4f(0, 0, 1, 0.25);
+//        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
+//        glColor4f(0, 0, 1, 0.25);
+//        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
+//        glEnd ();
     }
     glPopMatrix();
     

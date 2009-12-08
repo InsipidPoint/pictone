@@ -124,9 +124,10 @@ StkFloat MultiSynth::tick() {
                     break;
                 case bowed_off:
                     bowed->noteOff(1);
+                    current = clarinet;
                     break;
                 case bottle_on:
-                    bottle->noteOn(cmds.at(cmdIdx).freq, 1);
+                    bottle->noteOn(cmds.at(cmdIdx).freq, 0.5);
                     current = bottle;
                     break;
                 case bottle_off:
