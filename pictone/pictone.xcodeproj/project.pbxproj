@@ -99,6 +99,10 @@
 		0D0C04BB10B1849F003F8ED2 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04BA10B1849F003F8ED2 /* CoreAudio.framework */; };
 		0D0C04BF10B184AC003F8ED2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04BE10B184AC003F8ED2 /* CoreFoundation.framework */; };
 		0D0C04C310B184B3003F8ED2 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0C04C210B184B3003F8ED2 /* CoreMIDI.framework */; };
+		0D12A0A210CE510400DF9E64 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D12A09910CE510400DF9E64 /* image_DXT.c */; };
+		0D12A0A310CE510400DF9E64 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D12A09B10CE510400DF9E64 /* image_helper.c */; };
+		0D12A0A410CE510400DF9E64 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D12A09D10CE510400DF9E64 /* SOIL.c */; };
+		0D12A0A510CE510400DF9E64 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D12A09E10CE510400DF9E64 /* stb_image_aug.c */; };
 		0D18504C10B21EEB007E600D /* Synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D18504B10B21EEB007E600D /* Synth.cpp */; };
 		0D75AD3A10BB15B1007AC893 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75AD3910BB15B1007AC893 /* GLUT.framework */; };
 		0D75AD3E10BB15BE007AC893 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75AD3D10BB15BE007AC893 /* OpenGL.framework */; };
@@ -362,6 +366,16 @@
 		0D0C053610B18C4D003F8ED2 /* tomlowdr.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = tomlowdr.raw; sourceTree = "<group>"; };
 		0D0C053710B18C4D003F8ED2 /* tommiddr.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = tommiddr.raw; sourceTree = "<group>"; };
 		0D0C053810B18C4D003F8ED2 /* twopeaks.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = twopeaks.raw; sourceTree = "<group>"; };
+		0D12A08510CE4F6300DF9E64 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
+		0D12A09910CE510400DF9E64 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
+		0D12A09A10CE510400DF9E64 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
+		0D12A09B10CE510400DF9E64 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
+		0D12A09C10CE510400DF9E64 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
+		0D12A09D10CE510400DF9E64 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
+		0D12A09E10CE510400DF9E64 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
+		0D12A09F10CE510400DF9E64 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
+		0D12A0A010CE510400DF9E64 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug_c.h; sourceTree = "<group>"; };
+		0D12A0A110CE510400DF9E64 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug.h; sourceTree = "<group>"; };
 		0D18504A10B21EEB007E600D /* Synth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Synth.h; sourceTree = "<group>"; };
 		0D18504B10B21EEB007E600D /* Synth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Synth.cpp; sourceTree = "<group>"; };
 		0D75AD3910BB15B1007AC893 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -414,6 +428,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				0D12A09410CE50E500DF9E64 /* soil */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				0DF4AA8B10AF375800787BCD /* Camera.h */,
 				0DF4AA8C10AF375800787BCD /* Camera.cpp */,
@@ -713,6 +728,23 @@
 			path = rawwaves;
 			sourceTree = "<group>";
 		};
+		0D12A09410CE50E500DF9E64 /* soil */ = {
+			isa = PBXGroup;
+			children = (
+				0D12A08510CE4F6300DF9E64 /* SOIL.h */,
+				0D12A09910CE510400DF9E64 /* image_DXT.c */,
+				0D12A09A10CE510400DF9E64 /* image_DXT.h */,
+				0D12A09B10CE510400DF9E64 /* image_helper.c */,
+				0D12A09C10CE510400DF9E64 /* image_helper.h */,
+				0D12A09D10CE510400DF9E64 /* SOIL.c */,
+				0D12A09E10CE510400DF9E64 /* stb_image_aug.c */,
+				0D12A09F10CE510400DF9E64 /* stb_image_aug.h */,
+				0D12A0A010CE510400DF9E64 /* stbi_DDS_aug_c.h */,
+				0D12A0A110CE510400DF9E64 /* stbi_DDS_aug.h */,
+			);
+			name = soil;
+			sourceTree = "<group>";
+		};
 		0DF4AB4D10B064BE00787BCD /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +903,10 @@
 				0D0C043210B18143003F8ED2 /* Whistle.cpp in Sources */,
 				0D0C043310B18143003F8ED2 /* Wurley.cpp in Sources */,
 				0D18504C10B21EEB007E600D /* Synth.cpp in Sources */,
+				0D12A0A210CE510400DF9E64 /* image_DXT.c in Sources */,
+				0D12A0A310CE510400DF9E64 /* image_helper.c in Sources */,
+				0D12A0A410CE510400DF9E64 /* SOIL.c in Sources */,
+				0D12A0A510CE510400DF9E64 /* stb_image_aug.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -893,6 +929,10 @@
 					"HAVE_GETTIMEOFDAY=1",
 				);
 				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = pictone;
 			};
 			name = Debug;
@@ -910,6 +950,10 @@
 					"HAVE_GETTIMEOFDAY=1",
 				);
 				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = pictone;
 			};
 			name = Release;

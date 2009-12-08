@@ -7,6 +7,7 @@
 
 #include "Clarinet.h"
 #include "RtAudio.h"
+#include "SOIL.h"
 
 using namespace std;
 using namespace stk;
@@ -22,7 +23,7 @@ MultiSynth synth;
 bool g_detect = false;
 Detector::Result res;
 
-GLuint texture;
+GLuint texture, note_tex;
 
 //-----------------------------------------------------------------------------
 // function prototypes
@@ -77,6 +78,9 @@ void initialize()
     // enable color
     glEnable( GL_COLOR_MATERIAL );
     
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     //
 //    float fAmbient[] = {0.2f, 0.2f, 0.2f, 1.0f};
 //    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
@@ -87,6 +91,36 @@ void initialize()
     
     glEnable(GL_TEXTURE_2D);
     glGenTextures(1, &texture);
+    
+    note_tex = SOIL_load_OGL_texture
+	(
+     "note.png",
+     SOIL_LOAD_AUTO,
+     SOIL_CREATE_NEW_ID,SOIL_FLAG_MULTIPLY_ALPHA
+   //  SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+     );
+	
+    /* check for an error during the load process */
+    if( 0 == note_tex )
+    {
+        printf( "SOIL loading error: '%s'\n", SOIL_last_result() );
+    }
+    
+    cout << note_tex << endl;
+    
+//    glGenTextures(2, &note_tex);
+//    glBindTexture(GL_TEXTURE_2D, note_tex);
+//    glTexImage2D(GL_TEXTURE_2D,        //target
+//                 0,                    //level
+//                 GL_RGB,               //internalFormat
+//                 tex_img->width,         //width
+//                 tex_img->height,        //height
+//                 0,                    //border
+//                 GL_BGR,               //format
+//                 GL_UNSIGNED_BYTE,     //type
+//                 tex_img->imageData);    //pointer to image data
+//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
+//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
 }
 
 //-----------------------------------------------------------------------------
@@ -218,7 +252,7 @@ void displayFunc( )
                  tex_img->imageData);    //pointer to image data
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
-
+    
     glColor3f(1, 1, 1);
     glBegin (GL_QUADS);
     glTexCoord2f (0.0, 0.0); glVertex3f (0.0, 0.0, 10.0);
@@ -231,54 +265,33 @@ void displayFunc( )
     
     
     glEnable(GL_COLOR_MATERIAL);
-    glDisable(GL_TEXTURE_2D);
+//    glDisable(GL_TEXTURE_2D);
     static GLfloat angle = 0;
     static double y_diff = 0;
     glPushMatrix();
     if (res.size() > 0) {
         CvRect rect = res.at(synth.playIdx).rect;
-        glColor3f(0, 0, 1);
-        glTranslatef(rect.x+rect.width/2+82, rect.y+rect.height/2+82+sin(y_diff)*10, 20);
-        glRotatef(angle, 0, 1, 0);
-        glutSolidSphere(20, 8, 8);
+//        glColor3f(0, 0, 1);
+//        glTranslatef(rect.x+rect.width/2+82, rect.y+rect.height/2+82+sin(y_diff)*10, 20);
+//        glRotatef(angle, 0, 1, 0);
+//        glutSolidSphere(20, 8, 8);
         angle += 2;
         y_diff += 1;
         
-        //glBegin (GL_QUADS);
-//        glColor4f(0, 0, 1, 0.25);
-//        glVertex3f (rect.x+82, rect.y+82, 20.0);
-//        glColor4f(0, 0, 1, 0.25);
-//        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
-//        glColor4f(0, 0, 1, 0.25);
-//        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
-//        glColor4f(0, 0, 1, 0.25);
-//        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
-//        glEnd ();
+        glColor4f(0.5, 0.5, 1, 0.75);
+        glBindTexture(GL_TEXTURE_2D, note_tex);
+        glBegin (GL_QUADS);
+        glTexCoord2f (0.0, 0.0);
+        glVertex3f (rect.x+82, rect.y+82, 20.0);
+        glTexCoord2f (1.0, 0.0);
+        glVertex3f (rect.x+rect.width+83, rect.y+82, 20.0);
+        glTexCoord2f (1.0, 1.0);
+        glVertex3f (rect.x+rect.width+83, rect.y+rect.height+83, 20.0);
+        glTexCoord2f (0.0, 1.0);
+        glVertex3f (rect.x+82, rect.y+rect.height+83, 20.0);
+        glEnd ();
     }
     glPopMatrix();
-    
-//    for(int i = 0; i < res.size(); i++) {
-//        CvRect rect = res.at(i).rect;
-//        switch (res.at(i).type) {
-//            case Detector::TRIANGLE_UP:
-//                glPushMatrix();
-//                
-//                glTranslatef(rect.x, rect.y, 20);
-//                
-//                glBegin(GL_TRIANGLES);                          // Drawing Using Triangles
-//                glColor4f(1, 0, 0, 0.5); glVertex3f(10.0f, 0.0f, 10.0f);				// Top
-//                glColor4f(1, 0, 0, 0.5); glVertex3f(0.0f,20.0f, 10.0f);				// Bottom Left
-//                glColor4f(1, 0, 0, 0.5); glVertex3f(20.0f,20.0f, 10.0f);				// Bottom Right
-//                glEnd();
-//                
-//                glPopMatrix();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-    
-   // glColor3f( 1, 1, 1 );
     
     // flush and swap
     glFlush( );
