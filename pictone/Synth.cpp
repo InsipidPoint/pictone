@@ -63,6 +63,7 @@ void MultiSynth::init(Detector::Result& result) {
                     cmds.push_back(back);
                     c.m = freq; c.idx = i;
                     for (int j = 0; j < result.at(i).pts.size(); j+=2) {
+                        c.pt = j;
                         c.freq = calculateFrequency(result.at(i).pts.at(j)); c.delay = 0.03;
                         cmds.push_back(c);
                     }
@@ -96,6 +97,7 @@ StkFloat MultiSynth::tick() {
 //        return clarinet->tick();
         if (progress == 0) {
             playIdx = cmds.at(cmdIdx).idx;
+            playPt = cmds.at(cmdIdx).pt;
             switch (cmds.at(cmdIdx).m) {
                 case clarinet_on:
                     clarinet->noteOn(cmds.at(cmdIdx).freq, 0.3);

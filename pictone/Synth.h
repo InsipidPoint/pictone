@@ -44,6 +44,7 @@ public:
     void clear();
     StkFloat tick();
     int playIdx;
+    int playPt;
 private:
     enum mode {
         freq = -2,
@@ -64,6 +65,7 @@ private:
         float freq;
         float delay;
         int idx;
+        int pt;
     };
     vector<Cmd> cmds;
     

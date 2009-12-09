@@ -23,6 +23,7 @@ MultiSynth synth;
 bool g_detect = false;
 Detector::Result res;
 vector<pair<CvPoint,double> > note_flow;
+vector<CvScalar> colors;
 int note_flow_idx = 0;
 int gap = 5;
 
@@ -197,6 +198,16 @@ void idleFunc( )
     // reshapeFunc( g_width, g_height );
 }
 
+#define SIDEL 25
+void drawSquare(float x, float y, float z) {
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0, 0.0); glVertex3f(x-SIDEL/2.0, y-SIDEL, z);
+    glTexCoord2f(1.0, 0.0); glVertex3f(x+SIDEL/2.0, y-SIDEL, z);
+    glTexCoord2f(1.0, 1.0); glVertex3f(x+SIDEL/2.0, y, z);
+    glTexCoord2f(0.0, 1.0); glVertex3f(x-SIDEL/2.0, y, z);
+    glEnd();
+}
+
 //-----------------------------------------------------------------------------
 // Name: displayFunc( )
 // Desc: callback function invoked to draw the client area
@@ -243,25 +254,23 @@ void displayFunc( )
     
     
     glEnable(GL_COLOR_MATERIAL);
-//    glDisable(GL_TEXTURE_2D);
-    static GLfloat angle = 0;
-    static double y_diff = 0;
     glPushMatrix();
     if (res.size() > 0) {
-        CvRect rect = res.at(synth.playIdx).rect;
-//        glColor3f(0, 0, 1);
-//        glTranslatef(rect.x+rect.width/2+82, rect.y+rect.height/2+82+sin(y_diff)*10, 20);
-//        glRotatef(angle, 0, 1, 0);
-//        glutSolidSphere(20, 8, 8);
-        angle += 2;
-        y_diff += 1;
-        
         if (gap == 0) {
-            note_flow[note_flow_idx].first.x = rect.x+82;
-            note_flow[note_flow_idx].first.y = rect.y+83;
-            note_flow[note_flow_idx].second = 0.8;
+            Detector::Shape s = res.at(synth.playIdx);
+            if (s.type == Detector::UNKNOWN) {
+                note_flow[note_flow_idx].first.x = s.pts[synth.playPt].x+82;
+                note_flow[note_flow_idx].first.y = s.pts[synth.playPt].y+75;
+            } else {
+                CvRect rect = s.rect;
+                note_flow[note_flow_idx].first.x = rect.x+82+rect.width/2+rand()%rect.width-(rect.width/2);
+                note_flow[note_flow_idx].first.y = rect.y+83;
+            }
             
-            gap = 5;
+            note_flow[note_flow_idx].second = 0.8;
+            colors[note_flow_idx] = CV_RGB(rand()/double(RAND_MAX), rand()/double(RAND_MAX), rand()/double(RAND_MAX));
+            
+            gap = 3;
             note_flow_idx = (note_flow_idx+1) % note_flow.size();
         } else {
             gap--;
@@ -269,21 +278,12 @@ void displayFunc( )
         
         for (int i = 0; i < 100; i++) {
             if (note_flow[i].second > 0) {
-                note_flow[i].second -= 0.05;
+                note_flow[i].second -= 0.02;
                 note_flow[i].first.y -= 3;
                 
-                glColor4f(0.5, 0.5, 1, note_flow[i].second);
+                glColor4f(colors[i].val[0], colors[i].val[1], colors[i].val[2], note_flow[i].second);
                 glBindTexture(GL_TEXTURE_2D, note_tex);
-                glBegin (GL_QUADS);
-                glTexCoord2f (0.0, 0.0);
-                glVertex3f (note_flow[i].first.x, note_flow[i].first.y-rect.height, 20.0 + i/50.0);
-                glTexCoord2f (1.0, 0.0);
-                glVertex3f (note_flow[i].first.x+rect.width, note_flow[i].first.y-rect.height, 20.0 + i/50.0);
-                glTexCoord2f (1.0, 1.0);
-                glVertex3f (note_flow[i].first.x+rect.width, note_flow[i].first.y, 20.0 + i/50.0);
-                glTexCoord2f (0.0, 1.0);
-                glVertex3f (note_flow[i].first.x, note_flow[i].first.y, 20.0 + i/50.0);
-                glEnd ();
+                drawSquare(note_flow[i].first.x, note_flow[i].first.y, 20.0+i/50.0);
             }
         }
     }
@@ -323,6 +323,7 @@ int main(int argc, char **argv) {
     
     for (int i = 0; i < 100; i++) {
         note_flow.push_back(make_pair(cvPoint(0,0), 0));
+        colors.push_back(CV_RGB(0, 0, 0));
     }
     
     // Set the global sample rate before creating class instances.
