@@ -1,3 +1,4 @@
-pictone/build
+pictone/build/pictone.build
+pictone/build/Debug/pictone
 pictone/pictone.xcodeproj/*.mode1v3
 pictone/pictone.xcodeproj/*.pbxuser
