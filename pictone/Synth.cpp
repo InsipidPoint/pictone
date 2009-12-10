@@ -15,6 +15,8 @@ static bool resultPredicate(const Detector::Shape& d1, const Detector::Shape& d2
     return d1.rect.x < d2.rect.x;
 }
 
+#define ONTIME 0.4
+#define OFFTIME 0.1
 void MultiSynth::init(Detector::Result& result) {
     enabled = false;
 //    clarinet->noteOn(440, 1);
@@ -25,32 +27,32 @@ void MultiSynth::init(Detector::Result& result) {
         CvRect rect = result.at(i).rect;
 //        float y = rect.y + rect.height/2.0;
         switch (result.at(i).type) {
-            case Detector::TRIANGLE_UP:
-                c.m = clarinet_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+            case Detector::SLANT:
+                c.m = clarinet_on; c.freq = calculateFrequency(rect); c.delay = ONTIME; c.idx = i;
                 cmds.push_back(c);
-                c.m = clarinet_off; c.delay = 0.4;
+                c.m = clarinet_off; c.delay = OFFTIME;
                 cmds.push_back(c);
                 break;
             case Detector::SQUARE:
-                c.m = saxofony_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+                c.m = saxofony_on; c.freq = calculateFrequency(rect); c.delay = ONTIME; c.idx = i;
                 cmds.push_back(c);
-                c.m = saxofony_off; c.delay = 0.4;
+                c.m = saxofony_off; c.delay = OFFTIME;
                 cmds.push_back(c);
                 break;
-            case Detector::SLANT:
-                c.m = bowed_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+            case Detector::TRIANGLE_UP:
+                c.m = plucked_on; c.freq = calculateFrequency(rect); c.delay = ONTIME; c.idx = i;
                 cmds.push_back(c);
-                c.m = bowed_off; c.delay = 0.4;
+                c.m = plucked_off; c.delay = OFFTIME;
                 cmds.push_back(c);
                 break;
             case Detector::PIN:
-                c.m = bottle_on; c.freq = calculateFrequency(rect); c.delay = 0.6; c.idx = i;
+                c.m = bottle_on; c.freq = calculateFrequency(rect); c.delay = ONTIME; c.idx = i;
                 cmds.push_back(c);
-                c.m = bottle_off; c.delay = 0.4;
+                c.m = bottle_off; c.delay = OFFTIME;
                 cmds.push_back(c);
                 break;
             case Detector::STAR:
-                c.m = silence; c.delay = 1; c.idx = i;
+                c.m = silence; c.delay = 0.7; c.idx = i;
                 cmds.push_back(c);
                 break;
             case Detector::UNKNOWN:
@@ -58,7 +60,7 @@ void MultiSynth::init(Detector::Result& result) {
                     prev = cmds.back(); prev.idx = i;
                     cmds.pop_back();
                     back = cmds.back();
-                    back.delay = 0.1;
+                    back.delay = 0.03;
                     cmds.pop_back();
                     cmds.push_back(back);
                     c.m = freq; c.idx = i;

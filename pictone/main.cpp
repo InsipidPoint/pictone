@@ -198,7 +198,7 @@ void idleFunc( )
     // reshapeFunc( g_width, g_height );
 }
 
-#define SIDEL 25
+#define SIDEL 24
 void drawSquare(float x, float y, float z) {
     glBegin(GL_QUADS);
     glTexCoord2f(0.0, 0.0); glVertex3f(x-SIDEL/2.0, y-SIDEL, z);

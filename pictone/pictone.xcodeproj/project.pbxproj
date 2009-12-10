@@ -383,7 +383,6 @@
 		0DF4AA7A10AF36D100787BCD /* OpenCV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCV.framework; path = Library/Frameworks/OpenCV.framework; sourceTree = SDKROOT; };
 		0DF4AA8B10AF375800787BCD /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		0DF4AA8C10AF375800787BCD /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
-		0DF4AB4C10B064BA00787BCD /* triangle_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle_up.png; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* pictone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pictone; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* pictone.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = pictone.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -411,7 +410,6 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				0D0C049A10B18157003F8ED2 /* STK */,
-				0DF4AB4D10B064BE00787BCD /* Templates */,
 				C6859E8C029090F304C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 				0DF4AA7A10AF36D100787BCD /* OpenCV.framework */,
@@ -743,14 +741,6 @@
 				0D12A0A110CE510400DF9E64 /* stbi_DDS_aug.h */,
 			);
 			name = soil;
-			sourceTree = "<group>";
-		};
-		0DF4AB4D10B064BE00787BCD /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				0DF4AB4C10B064BA00787BCD /* triangle_up.png */,
-			);
-			name = Templates;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
